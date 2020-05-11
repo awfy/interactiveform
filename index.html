@@ -22,10 +22,12 @@
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
+				<div class="error-message" id="name-error" style="display: none;"></div>
         <input type="text" id="name" name="user-name">
         
         <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user-email">
+				<div class="error-message" id="email-error" style="display: none;"></div>
+				<input type="email" id="mail" name="user-email">
         
         <label for="title">Job Role</label>
         <select id="title" name="user-title">
@@ -78,6 +80,7 @@
 
       <fieldset class="activities">
         <legend>Register for Activities</legend>
+				<div class="error-message" id="activities-error" style="display: none;"></div>
           <label>
             <input type="checkbox" name="all" data-cost="200"> Main Conference — $200
           </label>
@@ -104,7 +107,7 @@
           <label>
             <input type="checkbox" name="npm" data-day-and-time="Wednesday 1pm-4pm" data-cost="100"> 
             npm Workshop — Wednesday 1pm-4pm, $100
-          </label>
+					</label>
       </fieldset>
       <fieldset>
         <legend>Payment Info</legend>
@@ -121,16 +124,19 @@
 
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
+						<div class="error-message" id="cc-num-error" style="display: none;"></div>
         	  <input id="cc-num" name="user-cc-num" type="text">
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
-            <input id="zip" name="user-zip" type="text"> 
+						<div class="error-message" id="zip-error" style="display: none;"></div>
+						<input id="zip" name="user-zip" type="text"> 
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
+						<div class="error-message" id="cvv-error" style="display: none;"></div>
             <input id="cvv" name="user-cvv" type="text"> 
           </div>
 

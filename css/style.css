@@ -166,6 +166,20 @@ option {
 	border-radius: 4px;
 }
 
+/**
+	* Used to apply styles to fields which have a validation error.
+**/
+.field-error {
+	border: 2px solid red;
+}
+
+.error-message {
+	padding: 2px 0 6px;
+	color: red;
+	font-size: 16px;
+	font-weight: 500;
+}
+
 /* ================================= 
   Helper Classes
 ==================================== */

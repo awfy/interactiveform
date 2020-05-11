@@ -59,8 +59,8 @@ design.addEventListener('change', event => {
 
 
 const activities = document.querySelector('.activities');
+const activitiesTitle = document.querySelector('.activities legend');
 const activitiesCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-console.log(activitiesCheckboxes);
 const activitiesCost = document.createElement('div');
 activities.appendChild(activitiesCost);
 
@@ -107,7 +107,6 @@ activities.addEventListener('change', e => {
    * Get the day and time from the `data-day-and-time` attr.
   **/
   const activityDate = input.getAttribute('data-day-and-time');
-  console.log(activityDate);
 
   /**
    * Loop over the checkboxes and mark them as disabled if their date matches 
@@ -127,4 +126,123 @@ activities.addEventListener('change', e => {
   }
 })
 
+const payment = document.querySelector('#payment');
+const paymentOptions = Object.values(payment);
+const paymentCreditCard = document.querySelector('#credit-card');
+const paymentPayPal = document.querySelector('#paypal');
+paymentPayPal.style.display = 'none';
+const paymentBitcoin = document.querySelector('#bitcoin');
+paymentBitcoin.style.display = 'none';
 
+/**
+ * Hides the "Select Payment Method" and selects the "Credit Card" option on 
+ * load.
+**/
+paymentOptions[0].hidden = true
+payment.value = 'credit card';
+
+payment.addEventListener('change', e => {
+  const value = e.target.value;
+  if (value === 'credit card') {
+    paymentCreditCard.style.display = '';
+    paymentPayPal.style.display = 'none';
+    paymentBitcoin.style.display = 'none';
+  } else if (value === 'paypal') {
+    paymentCreditCard.style.display = 'none';
+    paymentPayPal.style.display = '';
+    paymentBitcoin.style.display = 'none';
+  } else if (value === 'bitcoin') {
+    paymentCreditCard.style.display = 'none';
+    paymentPayPal.style.display = 'none';
+    paymentBitcoin.style.display = '';
+  }
+})
+
+const validateName = () => {
+  const name = document.querySelector('#name');
+	const nameError = document.querySelector('#name-error');
+  if (name.value === '') {
+		name.className = 'field-error'
+		nameError.style.display = 'block';
+		nameError.textContent = 'Your name is required.';
+	} else {
+		name.className = '';
+		nameError.style.display = 'none';
+	}
+}
+
+const validateEmail = () => {
+	const email = document.querySelector('#mail');
+	const emailError = document.querySelector('#email-error');
+  const regex = new RegExp("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\.([a-zA-Z]{2,5})$");
+  if (!regex.test(email.value)) { 
+		email.className = 'field-error';
+		emailError.style.display = 'block';
+		emailError.textContent = 'A valid email address is required.';
+	} else { 
+		email.className = '';
+		emailError.style.display = 'none';
+	}
+}
+
+const validateActivities = () => {
+	const checkboxChecker = Array.prototype.slice.call(activitiesCheckboxes).some(checkbox => checkbox.checked);
+	const activitiesError = document.querySelector('#activities-error');
+  if (!checkboxChecker) {
+		activitiesError.style.display = 'block';
+		activitiesError.textContent = 'You must pick at least one activity.';
+	} else {
+		activitiesError.style.display = 'none';
+	}
+}
+
+const validateCC = () => {
+  const ccNum = document.querySelector('#cc-num');
+	const ccNumError = document.querySelector('#cc-num-error');
+  const ccZIP = document.querySelector('#zip');
+	const ccZIPError = document.querySelector('#zip-error');
+  const ccCVV = document.querySelector('#cvv');
+	const ccCVVError = document.querySelector('#cvv-error');
+
+  const numRegex = new RegExp("^[0-9]{13,16}$");
+  const zipRegex = new RegExp("^[0-9]{5}$");
+  const cvvRegex = new RegExp("^[0-9]{3}$");
+
+  if (payment.value === 'credit card') {
+    if (!numRegex.test(ccNum.value)) {
+			ccNum.className = 'field-error';
+			ccNumError.style.display = 'block';
+			ccNumError.textContent = 'Card number must be between 13 and 16 digits.';
+		} else {
+			ccNum.className = '';
+			ccNumError.style.display = 'none';
+		};
+
+    if (!zipRegex.test(ccZIP.value)) {
+			ccZIP.className = 'field-error';
+			ccZIPError.style.display = 'block';
+			ccZIPError.textContent = 'Zip must be 5 digits.';
+		} else {
+			ccZIP.className = '';
+			ccZIPError.style.display = 'none';
+		};
+
+    if (!cvvRegex.test(ccCVV.value)) {
+			ccCVV.className = 'field-error';
+			ccCVVError.style.display = 'block';
+			ccCVVError.textContent = 'CVV must be 3 digits.';
+		} else {
+			ccCVV.className = '';
+			ccCVVError.style.display = 'none';
+		};
+  }
+}
+
+const form = document.querySelector('form');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  validateName();
+  validateEmail();
+  validateActivities();
+  validateCC();
+});
