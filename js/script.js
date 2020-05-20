@@ -277,10 +277,13 @@ const validateCC = () => {
 }
 
 /**
- * Run the email validation when the user leaves the email field.
+ * Run the email validation whenever the user presses a key in the field.
+ * 
+ * An alternative method might be to do this on blur to avoid annoying the user
+ * as they type.
  */
 const email = document.querySelector('#mail');
-email.addEventListener('blur', e => {
+email.addEventListener('keyup', e => {
   validateEmail();
 })
 
