@@ -210,7 +210,7 @@ const validateEmail = () => {
   const email = document.querySelector("#mail");
   const emailError = document.querySelector("#email-error");
   const regex = new RegExp(
-    "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+).([a-zA-Z]{2,5})$"
+    "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\.([a-zA-Z]{2,5})$"
   );
   if (!regex.test(email.value)) {
     email.className = "field-error";
